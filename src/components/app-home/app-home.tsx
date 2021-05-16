@@ -10,7 +10,7 @@ export class AppHome {
     return [
       <ion-header>
         <ion-toolbar color="primary">
-          <ion-title>Home</ion-title>
+          <ion-title>Mujeres Guitarristas de todo el mundo</ion-title>
         </ion-toolbar>
       </ion-header>,
 
