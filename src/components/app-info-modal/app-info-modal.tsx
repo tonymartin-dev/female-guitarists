@@ -1,5 +1,5 @@
-import {Component, ComponentInterface, h, Host, JSX, Prop, State} from "@stencil/core"
-import {guitaristsInfo} from "../../services/guitarist-data";
+import {Component, ComponentInterface, h, Host, JSX, Prop} from "@stencil/core"
+import { GuitaristInfo } from '../../services/guitarist-data';
 
 @Component({
   tag: "app-info-modal",
@@ -8,13 +8,14 @@ import {guitaristsInfo} from "../../services/guitarist-data";
 })
 export class InfoModal implements ComponentInterface {
   @Prop() country?: string
+  @Prop() women?: GuitaristInfo[]
 
-  @State() countryData
+  // @State() countryData
 
-  componentWillLoad(): Promise<void> | void {
-    this.countryData = getGuitarristsInfo(this.country)
-    console.log('countryData', this.countryData)
-  }
+  // componentWillLoad(): Promise<void> | void {
+  //   this.countryData = getGuitarristsInfo(this.country)
+  //   console.log('countryData', this.countryData)
+  // }
 
   render(): JSX.Element {
     return (
@@ -26,12 +27,12 @@ export class InfoModal implements ComponentInterface {
         <ion-content>
           <ion-tabs>
             <ion-tab-bar slot="top">
-              {this.countryData.map(person => (
+              {this.women.map(person => (
                 <ion-tab-button tab={person.name}>{person.name}</ion-tab-button>
               ))}
             </ion-tab-bar>
 
-            {this.countryData.map(person => (
+            {this.women.map(person => (
               <ion-tab tab={person.name}>
                 <app-guitarist-info person={person}/>
               </ion-tab>
@@ -44,22 +45,5 @@ export class InfoModal implements ComponentInterface {
   }
 }
 
-const getGuitarristsInfo = (country: string) => {
-  return guitaristsInfo[country].map(person => ({
-    ...person,
-    ...(person.youtube
-      ? {youtube: person.youtube
-          .map(url => {
-            return url
-              .split('?')
-              // @ts-ignore
-              .flatMap(i => i.split('&'))
-              .map(i => i.split("="))
-              .find(i => i[0] === 'v')?.[1]
-          })
-          .filter(id => !!id)
-      }
-      : {})
-  }))
 
-}
+

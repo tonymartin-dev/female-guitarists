@@ -5,6 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { GuitaristInfo } from "./services/guitarist-data";
 export namespace Components {
     interface AppGuitaristInfo {
         "person": any;
@@ -13,6 +14,7 @@ export namespace Components {
     }
     interface AppInfoModal {
         "country"?: string;
+        "women"?: GuitaristInfo[];
     }
     interface AppMap {
     }
@@ -66,6 +68,7 @@ declare namespace LocalJSX {
     }
     interface AppInfoModal {
         "country"?: string;
+        "women"?: GuitaristInfo[];
     }
     interface AppMap {
     }
