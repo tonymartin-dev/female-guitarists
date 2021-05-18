@@ -1,4 +1,4 @@
-import {Component, ComponentInterface, h, Host, JSX, Prop, State} from "@stencil/core"
+import { Component, ComponentInterface, Element, h, Host, JSX, Prop, State } from '@stencil/core';
 import {guitaristsInfo} from "../../services/guitarist-data";
 
 @Component({
@@ -11,16 +11,29 @@ export class InfoModal implements ComponentInterface {
 
   @State() countryData
 
+  @Element() el!: HTMLAppInfoModalElement
+
+  private modalRef?: HTMLIonModalElement
+
   componentWillLoad(): Promise<void> | void {
     this.countryData = getGuitarristsInfo(this.country)
     console.log('countryData', this.countryData)
+  }
+
+  componentDidLoad() {
+    this.modalRef = this.el.closest('ion-modal')
   }
 
   render(): JSX.Element {
     return (
       <Host>
         <ion-header>
-          <ion-toolbar><h1>{this.country}</h1></ion-toolbar>
+          <ion-toolbar>
+            <h1>{this.country}</h1>
+            <ion-button slot="end" fill="clear" onClick={() => this.modalRef?.dismiss()}>
+              <ion-icon name="close"/>
+            </ion-button>
+          </ion-toolbar>
         </ion-header>
 
         <ion-content>
